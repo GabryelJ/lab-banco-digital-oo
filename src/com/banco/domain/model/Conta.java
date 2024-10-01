@@ -2,8 +2,8 @@ package com.banco.domain.model;
 
 import lombok.*;
 
+
 @Getter
-@AllArgsConstructor
 public abstract class Conta {
     private static final int AGENCIA_PADRAO = 1;
     private static int idContaSequencial= 1;
