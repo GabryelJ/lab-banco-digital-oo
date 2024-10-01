@@ -1,8 +1,12 @@
 package com.banco.domain.model;
 
+import lombok.*;
+
+@Getter
+@AllArgsConstructor
 public abstract class Conta {
     private static final int AGENCIA_PADRAO = 1;
-    private static int IDCONTASEQUENCIAL= 1;
+    private static int idContaSequencial= 1;
 
     private int agencia;
     private int numero;
@@ -11,7 +15,7 @@ public abstract class Conta {
 
     public Conta(Cliente cliente) {
         this.agencia = Conta.AGENCIA_PADRAO;
-        this.numero = IDCONTASEQUENCIAL;
+        this.numero = idContaSequencial++;
         this.saldo = 0;
         this.cliente = cliente;
     }
@@ -33,22 +37,10 @@ public abstract class Conta {
         contaDestino.saldo += valor;
     }
 
-    public int getAgencia() {
-        return agencia;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
     protected void imprimirExtrato() {
-        System.out.println(String.format("Titular: %s", this.cliente.getNome()));
-        System.out.println(String.format("Agencia: %d", this.agencia));
-        System.out.println(String.format("Numero: %d", this.numero));
-        System.out.println(String.format("Saldo: %.2f", this.saldo));
+        System.out.printf("Titular: %s%n", this.cliente.getNome());
+        System.out.printf("Agencia: %d%n", this.agencia);
+        System.out.printf("Numero: %d%n", this.numero);
+        System.out.printf("Saldo: %.2f%n", this.saldo);
     }
 }
