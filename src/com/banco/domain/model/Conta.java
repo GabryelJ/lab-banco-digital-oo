@@ -1,6 +1,7 @@
 package com.banco.domain.model;
 
 import com.banco.domain.exception.SaldoInsuficienteException;
+import com.banco.domain.exception.ValorDeTransacaoNegativoException;
 import lombok.*;
 
 
@@ -26,7 +27,7 @@ public abstract class Conta {
     }
 
 
-    public void sacar(int valor) throws SaldoInsuficienteException {
+    public void sacar(float valor) throws SaldoInsuficienteException {
         if (saldo >= valor) {
             this.saldo -= valor;
         } else {
@@ -34,11 +35,15 @@ public abstract class Conta {
         }
     }
 
-    public void depositar(int valor) {
-        this.saldo += valor;
+    public void depositar(float valor) throws ValorDeTransacaoNegativoException {
+        if (valor >= 0){
+            this.saldo += valor;
+        }else{
+            throw new ValorDeTransacaoNegativoException();
+        }
     }
 
-    public void transferir(int valor, Conta contaEnvio, Conta contaDestino) throws SaldoInsuficienteException {
+    public void transferir(float valor, Conta contaEnvio, Conta contaDestino) throws SaldoInsuficienteException, ValorDeTransacaoNegativoException {
         contaEnvio.sacar(valor);
         contaDestino.depositar(valor);
     }
