@@ -1,8 +1,7 @@
-import com.banco.domain.model.Banco;
-import com.banco.domain.model.Cliente;
-import com.banco.domain.model.Conta;
-import com.banco.domain.model.ContaCorrente;
+package com.banco.ui;
 
+import com.banco.domain.exception.ContaNaoCriadaException;
+import com.banco.domain.model.*;
 import java.util.*;
 
 public class Main {
@@ -27,9 +26,9 @@ public class Main {
                         String nome = "";
                         System.out.println("Criação de conta: ");
                         System.out.printf("Insira seu nome: ");
-                        scanner.nextLine(); // limpa buffer
+                        scanner.nextLine();
                         nome = scanner.nextLine();
-                        Conta conta = null; // optional?
+                        Conta conta = null;
                         Cliente cliente = new Cliente(nome);
                         System.out.printf("\nDigite 1 para criar uma conta Corrente. \n" +
                                 "Digite 2 para criar uma conta Poupanca." +
@@ -37,24 +36,32 @@ public class Main {
                         escolha = scanner.nextInt();
                         if (escolha == 1) {
                             conta = new ContaCorrente(cliente);
-                        } else {
-                            conta = new ContaCorrente(cliente);
+                        } else if (escolha == 2){
+                            conta = new ContaPoupanca(cliente);
+                        } else{
+                            throw new ContaNaoCriadaException();
                         }
                         banco.persistirConta(conta);
                         System.out.println("Conta criada!");
-                    } catch (Exception e) {// personalizar?
-                        System.out.println("Erro." + e);
+                    }catch (Exception e) {
+                        System.out.println("Erro: " + e.getMessage());
                     }
                 }
                 case 2 -> {
-                    System.out.println("Insira o número da sua conta");
-                    int numero = scanner.nextInt();
-                    System.out.println("Qual o tipo da conta?\n" +
-                            "1 - Corrente\n" +
-                            "2 - Poupança");
-                    int tipo = scanner.nextInt();
-                    Conta conta = banco.buscaPorNumeroDaConta(numero, tipo);
-                    conta.imprimirExtrato();
+                    try {
+                        System.out.println("Insira o número da sua conta");
+                        int numero = scanner.nextInt();
+                        System.out.println("Qual o tipo da conta?\n" +
+                                "1 - Corrente\n" +
+                                "2 - Poupança");
+                        int tipo = scanner.nextInt();
+                        Conta conta = banco.buscaPorNumeroDaConta(numero, tipo);
+                        if (conta != null){
+                            conta.imprimirExtrato();
+                        }
+                    }catch (Exception e){
+                        System.out.println("Erro: " + e.getMessage());
+                    }
                 }
 
                 case 6 -> rodando = false;
