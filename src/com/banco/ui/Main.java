@@ -64,6 +64,27 @@ public class Main {
                     }
                 }
 
+                case 3 -> {
+                    try {
+                        System.out.println("Insira o número da sua conta");
+                        int numero = scanner.nextInt();
+                        System.out.println("Qual o tipo da conta?\n" +
+                                "1 - Corrente\n" +
+                                "2 - Poupança");
+                        int tipo = scanner.nextInt();
+                        Conta conta = banco.buscaPorNumeroDaConta(numero, tipo);
+                        if (conta != null) {
+                            System.out.println("Insira o valor do saque: ");
+                            float valorSaque = scanner.nextFloat();
+                            conta.sacar(valorSaque);
+                            System.out.println("Saldo atual: " + conta.getSaldo());
+                            System.out.println("Saque concluido!");
+                        }
+                    }catch (Exception e){
+                        System.out.println("Erro: " + e.getMessage());
+                    }
+                }
+
                 case 4 -> {
                     try {
                     System.out.println("Insira o número da sua conta");
@@ -77,13 +98,14 @@ public class Main {
                         System.out.println("Insira o valor do depósito: ");
                         float valorDeposito = scanner.nextFloat();
                         conta.depositar(valorDeposito);
+                        System.out.println("Saldo atual: " + conta.getSaldo());
                         System.out.println("Deposito concluido!");
                     }
                     }catch (Exception e){
                         System.out.println("Erro: " + e.getMessage());
                     }
                 }
-                
+
                 case 6 -> rodando = false;
 
                 default -> System.out.println("Tente novamente.");
