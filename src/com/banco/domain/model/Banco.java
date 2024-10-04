@@ -21,8 +21,6 @@ public class Banco {
         contas.add(conta);
     }
 
-
-
     public Conta buscaPorNumeroDaConta(int numero, int tipo){
         Conta contaIndice = tipo == 1 ?  new ContaPoupanca(numero) :  new ContaCorrente(numero);
         Integer contaBuscada = Collections.binarySearch(

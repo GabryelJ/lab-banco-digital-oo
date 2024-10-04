@@ -57,6 +57,8 @@ public class Main {
                     conta.imprimirExtrato();
                 }
 
+                case 6 -> rodando = false;
+
                 default -> System.out.println("Tente novamente.");
             }
         }
