@@ -5,6 +5,10 @@ public class ContaPoupanca extends Conta {
         super(cliente);
     }
 
+    public ContaPoupanca(int numero){
+        super(numero);
+    }
+
     @Override
     public void imprimirExtrato() {
         System.out.println("=== Extrato Conta Poupança ===");

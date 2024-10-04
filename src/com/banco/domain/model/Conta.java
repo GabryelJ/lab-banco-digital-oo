@@ -20,6 +20,11 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
+    public Conta(int numero){
+        this.numero = numero;
+    }
+
+
     public void sacar(int valor) {
         if (saldo >= valor) {
             this.saldo -= valor;
@@ -33,11 +38,10 @@ public abstract class Conta {
     }
 
     public void transferir(int valor, Conta contaDestino) {
-
         contaDestino.saldo += valor;
     }
 
-    protected void imprimirExtrato() {
+    public void imprimirExtrato() {
         System.out.printf("Titular: %s%n", this.cliente.getNome());
         System.out.printf("Agencia: %d%n", this.agencia);
         System.out.printf("Numero: %d%n", this.numero);
