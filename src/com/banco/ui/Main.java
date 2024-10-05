@@ -87,20 +87,50 @@ public class Main {
 
                 case 4 -> {
                     try {
-                    System.out.println("Insira o número da sua conta");
-                    int numero = scanner.nextInt();
-                    System.out.println("Qual o tipo da conta?\n" +
-                            "1 - Corrente\n" +
-                            "2 - Poupança");
-                    int tipo = scanner.nextInt();
-                    Conta conta = banco.buscaPorNumeroDaConta(numero, tipo);
-                    if (conta != null) {
-                        System.out.println("Insira o valor do depósito: ");
-                        float valorDeposito = scanner.nextFloat();
-                        conta.depositar(valorDeposito);
-                        System.out.println("Saldo atual: " + conta.getSaldo());
-                        System.out.println("Deposito concluido!");
+                        System.out.println("Insira o número da sua conta");
+                        int numero = scanner.nextInt();
+                        System.out.println("Qual o tipo da conta?\n" +
+                                "1 - Corrente\n" +
+                                "2 - Poupança");
+                        int tipo = scanner.nextInt();
+                        Conta conta = banco.buscaPorNumeroDaConta(numero, tipo);
+                        if (conta != null) {
+                            System.out.println("Insira o valor do depósito: ");
+                            float valorDeposito = scanner.nextFloat();
+                            conta.depositar(valorDeposito);
+                            System.out.println("Saldo atual: " + conta.getSaldo());
+                            System.out.println("Deposito concluido!");
+                        }
+                    }catch (Exception e){
+                        System.out.println("Erro: " + e.getMessage());
                     }
+                }
+
+                case 5 -> {
+                    try {
+                        System.out.println("Insira o número da sua conta: ");
+                        int numero = scanner.nextInt();
+                        System.out.println("Qual o tipo da conta?\n" +
+                                "1 - Corrente\n" +
+                                "2 - Poupança");
+                        int tipo = scanner.nextInt();
+                        Conta contaEnvio = banco.buscaPorNumeroDaConta(numero, tipo);
+                        if (contaEnvio != null){
+                            System.out.println("Insira o número da conta que receberá a transferência: ");
+                            numero = scanner.nextInt();
+                            System.out.println("Qual o tipo da conta?\n" +
+                                    "1 - Corrente\n" +
+                                    "2 - Poupança");
+                            tipo = scanner.nextInt();
+                            Conta contaDestino = banco.buscaPorNumeroDaConta(numero, tipo);
+                            if (contaDestino != null){
+                                System.out.println("Quanto deseja transferir? ");
+                                float valorTransferencia = scanner.nextFloat();
+                                contaEnvio.transferir(valorTransferencia, contaEnvio, contaDestino);
+                                System.out.println("Saldo atual: " + contaEnvio.getSaldo());
+                            }
+                        }
+
                     }catch (Exception e){
                         System.out.println("Erro: " + e.getMessage());
                     }

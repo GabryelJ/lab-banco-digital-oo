@@ -27,11 +27,15 @@ public abstract class Conta {
     }
 
 
-    public void sacar(float valor) throws SaldoInsuficienteException {
-        if (saldo >= valor) {
-            this.saldo -= valor;
-        } else {
-            throw new SaldoInsuficienteException();
+    public void sacar(float valor) throws SaldoInsuficienteException, ValorDeTransacaoNegativoException {
+        if (valor >= 0) {
+            if (saldo >= valor) {
+                this.saldo -= valor;
+            } else {
+                throw new SaldoInsuficienteException();
+            }
+        }else{
+            throw new ValorDeTransacaoNegativoException();
         }
     }
 
