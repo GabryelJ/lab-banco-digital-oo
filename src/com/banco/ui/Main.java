@@ -7,6 +7,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Boolean rodando = true;
+        int escolha = -99;
         Scanner scanner = new Scanner(System.in);
         Banco banco = new Banco("CASH! & MONEY!") ;
         System.out.println("Bem-Vindo!");
@@ -19,7 +20,12 @@ public class Main {
                     "\n5 - Transferir" +
                     "\n6 - Sair" +
                     "\n Escolha: ");
-            int escolha = scanner.nextInt();
+            try {
+                escolha = scanner.nextInt();
+            }catch (Exception e){
+                System.out.println("Erro: ");
+                scanner.nextLine(); //limpa buffer para evitar loop
+            }
             switch (escolha) {
                 case 1 -> {
                     try {
